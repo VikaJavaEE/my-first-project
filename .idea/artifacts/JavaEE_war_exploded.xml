@@ -6,6 +6,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="JavaEE" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="commons-lang-2.6" />
+          <element id="library" level="project" name="commons-codec-1.15" />
+        </element>
       </element>
       <element id="javaee-facet-resources" facet="JavaEE/web/Web" />
     </root>

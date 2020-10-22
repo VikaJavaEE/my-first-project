@@ -2,6 +2,7 @@ package Bitlab.servlet;
 
 import Database.DBManager;
 import Database.Users;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +20,7 @@ public class UpdateProfileServlet extends HttpServlet {
         if(user!=null){
 
             String fullName = request.getParameter("full_name");
-            user.setFullName(fullName);
+            user.setFullName(StringEscapeUtils.escapeHtml(fullName));
             if(DBManager.updateUserProfile(user)){
                 request.getSession().setAttribute("USER", user);
             }

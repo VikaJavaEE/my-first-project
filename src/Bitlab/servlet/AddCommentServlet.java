@@ -4,6 +4,7 @@ import Database.Comments;
 import Database.DBManager;
 import Database.Hotels;
 import Database.Users;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,8 @@ public class AddCommentServlet extends HttpServlet {
         if (hotel!=null){
             String commentText = request.getParameter("comment");
             Comments comment = new Comments();
-            comment.setComment(commentText);
+            comment.setComment(StringEscapeUtils.escapeHtml(commentText));
+
             comment.setUser(currentUser);
             comment.setHotel(hotel);
 

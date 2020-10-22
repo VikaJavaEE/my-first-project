@@ -4,6 +4,7 @@ import Database.Cities;
 import Database.Countries;
 import Database.DBManager;
 import Database.Users;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,13 +39,19 @@ public class RegisterServlet extends HttpServlet {
             Users user = DBManager.getUserByEmail(email);
 
             if (user == null) {
+
                 Cities city = DBManager.getCityById(cityId);
+
                 redirect =  "/register?cityerror&email="+(email!=null?email:"")+"&full_name="+(fullName!=null?fullName:"");
 
-                Users newUser = new Users(null, email, password, fullName, "/images/default_user.png", city);
-                DBManager.addUser(newUser);
+                if(city!=null) {
 
-                redirect = "/register?success";
+                    password = DigestUtils.sha1Hex(password);
+                    Users newUser = new Users(null, email, password, fullName, "/images/default_user.png", city);
+                    DBManager.addUser(newUser);
+
+                    redirect = "/register?success";
+                }
 
             }
 
